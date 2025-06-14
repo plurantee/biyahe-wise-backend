@@ -3,7 +3,6 @@
 /.gradle/
 /out/
 /target/
-*.jar
 *.war
 *.class
 
