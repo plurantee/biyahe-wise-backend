@@ -4,16 +4,12 @@ plugins {
     id 'java'
 }
 
-group = 'com.'
+group = 'com.biyahewise'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '23'
+sourceCompatibility = '21'
 
 repositories {
     mavenCentral()
-}
-
-springBoot {
-    mainClass = 'com.app.transportestimator.TransportEstimatorApplication'
 }
 
 dependencies {
