@@ -21,4 +21,4 @@ COPY . .
 RUN ./gradlew bootJar --no-daemon
 
 # Run the application
-CMD ["java", "-Dserver.port=$PORT", "-jar", "build/libs/biyahewise-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-Dserver.port=$PORT", "-jar", "build/libs/biyahe-wise-backend-0.0.1-SNAPSHOT.jar"]
