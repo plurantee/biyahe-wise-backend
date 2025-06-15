@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: biyahewise-backend
+    env: java
+    plan: starter
+    repo: https://github.com/plurantee/biyahe-wise-backend
+    buildCommand: ./gradlew build
+    startCommand: java -Dserver.port=$PORT -jar build/libs/biyahewise-0.0.1-SNAPSHOT.jar
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
+    buildFilter:
+      paths:
+        - "**/*"
