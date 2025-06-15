@@ -1,24 +1,24 @@
 # Use official OpenJDK 21 image
 FROM eclipse-temurin:21-jdk
 
-# Set work directory inside container
+# Set working directory inside container
 WORKDIR /app
 
-# Copy Gradle wrapper files first (to leverage caching)
+# Copy only the Gradle files first (for Docker build caching)
 COPY gradlew .
 COPY gradle gradle
 COPY build.gradle .
 COPY settings.gradle .
 COPY system.properties .
 
-# Download Gradle dependencies (cache optimization)
-RUN ./gradlew dependencies
+# Download Gradle dependencies (caching layer)
+RUN ./gradlew dependencies --no-daemon
 
-# Copy rest of the project
+# Copy rest of the project after dependencies
 COPY . .
 
-# Build the Spring Boot application
-RUN ./gradlew build
+# Build application (bootJar)
+RUN ./gradlew bootJar --no-daemon
 
-# Run the generated JAR file
+# Run the application
 CMD ["java", "-Dserver.port=$PORT", "-jar", "build/libs/biyahewise-0.0.1-SNAPSHOT.jar"]
