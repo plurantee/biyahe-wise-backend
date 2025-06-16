@@ -77,29 +77,46 @@ public class EstimationService {
     private CommuteResponse estimateCommute(CommuteRequest request) {
         try {
             String userPrompt = String.format("""
-                    You are a commute estimator.
+    You are a commute estimator.
 
-                    The user is commuting from: %s to: %s at: %s.
+    The user is commuting:
+    - From: %s
+    - To: %s
+    - Time: %s.
 
-                    Provide multiple commute options as valid JSON in this format:
+    Important Instructions:
+    - Search in web the exact address of origin and destination.
+    - When referencing the origin and destination, include the full address.
+    - Provide multiple commute options as valid JSON.
+    - Provide up to 5 options.
+    - DO NOT include riding taxi/grab from end to end.
+    - Sort by cheapest to most expensive option.
+    - Be highly detailed and specific.
+    - For each step, include:
+      - Street names where riding or walking happens.
+      - Exact corner/intersection for pick-up and drop-off.
+      - Nearby landmarks when available (mall names, stations, markets, etc).
+      - Transfer points if applicable.
+    - Use realistic commuting patterns for Metro Manila and neighboring areas.
+    - Sort by shortest time covered to longest
+    - always add 10 minutes for safety
 
-                    {
-                      "options": [
-                        {
-                          "optionTitle": "Option 1: Jeep + MRT",
-                          "estimatedTimeMinutes": int,
-                          "estimatedCostPHP": int,
-                          "steps": [
-                            "Step 1...",
-                            "Step 2..."
-                          ]
-                        }
-                      ]
-                    }
+    Provide your response ONLY as valid JSON, following this format:
 
-                    Provide up to 3 options. Return ONLY valid JSON.
-                    """,
-                    request.getOrigin(), request.getDestination(), request.getDateTime());
+    {
+      "options": [
+        {
+          "optionTitle": "Option 1: Mode Combination",
+          "estimatedTimeMinutes": int,
+          "estimatedCostPHP": int,
+          "steps": [
+            "Step 1...",
+            "Step 2..."
+          ]
+        }
+      ]
+    }
+    """, request.getOrigin(), request.getDestination(), request.getDateTime());
 
             String requestBody = buildOpenAIRequest(userPrompt, "You are a highly accurate global commute assistant.", 800);
             String response = callOpenAI(requestBody);
