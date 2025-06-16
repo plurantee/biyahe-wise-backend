@@ -118,7 +118,7 @@ public class EstimationService {
     }
     """, request.getOrigin(), request.getDestination(), request.getDateTime());
 
-            String requestBody = buildOpenAIRequest(userPrompt, "You are a highly accurate global commute assistant.", 800);
+            String requestBody = buildOpenAIRequest(userPrompt, "You are a highly accurate global commute assistant.", 1200);
             String response = callOpenAI(requestBody);
 
             JsonNode messageContent = extractMessageContent(response);
