@@ -88,7 +88,7 @@ public class EstimationService {
     - Search in web the exact address of origin and destination.
     - When referencing the origin and destination, include the full address.
     - Provide multiple commute options as valid JSON.
-    - Provide up to 5 options.
+    - Provide up to 3 options.
     - DO NOT include riding taxi/grab from end to end.
     - Sort by cheapest to most expensive option.
     - Be highly detailed and specific.
